@@ -1,4 +1,5 @@
 install.packages("plotly")
+# may need more installed packages to run app
 library("shiny")
 library("ggplot2")
 library("plotly")
