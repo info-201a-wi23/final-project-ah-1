@@ -16,15 +16,15 @@ full_df <- read.csv("fulldataframe.csv")
 
 # Audreys tab
 
-# zipcode_viz_tab <- tabPanel(
-#   "Zipcode Map",
-#   sidebarLayout(
-#     sidebarPanel(
-#     ),
-#     mainPanel(
-#     )
-#   )
-# )
+zipcode_viz_tab <- tabPanel(
+  "Zipcode Map",
+  sidebarLayout(
+    sidebarPanel(
+    ),
+    mainPanel(
+    )
+  )
+)
 
 # Noors tab
 
@@ -56,36 +56,36 @@ ethnicity_viz_tab <- tabPanel(
 )
 # Zachs tab
 
-# time_vis_tab <- tabPanel(
-#   "TAB NAME",
-#   sidebarLayout(
-#     sidebarPanel(
-#     ),
-#     mainPanel(
-#     )
-#   )
-# )
+time_vis_tab <- tabPanel(
+  "TAB NAME",
+  sidebarLayout(
+    sidebarPanel(
+    ),
+    mainPanel(
+    )
+  )
+)
 
 # Williams tabs (partially commented out as the files dont exist yet)
 
-# intro_tab <- tabPanel(
-#   "Introduction",
-#   fluidPage(
-#     column(
-#     # includeMarkdown("intro.md")
-#     ),
-#     column(
-#     # image here?
-#     )
-#   )
-# )
+intro_tab <- tabPanel(
+  "Introduction",
+  fluidPage(
+    column(
+    # includeMarkdown("intro.md")
+    ),
+    column(
+    # image here?
+    )
+  )
+)
 
-# conclusion_tab <- tabPanel(
-#   "Conclusion",
-#   fluidPage(
-#     # includeMarkdown("conclusion.md")
-#   )
-# )
+conclusion_tab <- tabPanel(
+  "Conclusion",
+  fluidPage(
+    # includeMarkdown("conclusion.md")
+  )
+)
 
 
 # ui creation
