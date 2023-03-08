@@ -56,13 +56,38 @@ ethnicity_viz_tab <- tabPanel(
 )
 # Zachs tab
 
+select_widget <-
+  selectInput(
+    inputId = "cert_selection",
+    label = "Certification Type",
+    choices = cert_types,
+    selectize = TRUE,
+    # True allows you to select multiple choices...
+    multiple = TRUE,
+    selected = 
+  )
+
+slider_widget <- sliderInput(
+  inputId = "year_selection",
+  label = "year",
+  min = min(certs$full_date_estab),
+  max = max(certs$full_date_estab),
+  value = c(1915, 2015),
+  sep = "")
+
+# Put a plot in the middle of the page
+main_panel_plot <- mainPanel(
+  # Make plot interactive
+  plotlyOutput(outputId = "cert_plot")
+)
 time_vis_tab <- tabPanel(
-  "TAB NAME",
+  "Certifications over time",
   sidebarLayout(
     sidebarPanel(
+      select_widget,
+      slider_widget
     ),
-    mainPanel(
-    )
+    mainPanel
   )
 )
 
