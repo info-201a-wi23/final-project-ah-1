@@ -70,8 +70,8 @@ select_widget <-
 slider_widget <- sliderInput(
   inputId = "year_selection",
   label = "year",
-  min = min(certs$full_date_estab),
-  max = max(certs$full_date_estab),
+  min = "1984-01-01",
+  max = "2018-01-01",
   value = c(1915, 2015),
   sep = "")
 
