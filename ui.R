@@ -64,15 +64,15 @@ select_widget <-
     selectize = TRUE,
     # True allows you to select multiple choices...
     multiple = TRUE,
-    selected = 
+    selected = "WBE"
   )
 
 slider_widget <- sliderInput(
   inputId = "year_selection",
   label = "year",
-  min = "1984-01-01",
-  max = "2018-01-01",
-  value = c(1915, 2015),
+  min = 1984-01-01,
+  max = 2018-01-01,
+  value = c(1984-01-01, 2018-01-01),
   sep = "")
 
 # Put a plot in the middle of the page
