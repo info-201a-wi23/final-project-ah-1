@@ -6,9 +6,11 @@ library("scales")
 library("maps")
 library("dplyr")
 library("zipcodeR")
+library("mapproj")
+library("lubridate")
 
 # Load in relevant data
-full_df <- read.csv("fulldataframe.csv")
+full_df <- read.csv("fulldataframe.csv", colClasses = c(ZIP = "character"))
 
 # Audreys work
 zipcodes_lat <- full_df %>% group_by(Vendor_Formal_Name) %>% summarize(reverse_zipcode(ZIP)[8])

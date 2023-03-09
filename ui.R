@@ -78,7 +78,7 @@ select_widget <-
   selectInput(
     inputId = "cert_selection",
     label = "Certification Type",
-    choices = unique(certs$certification),
+    choices = unique(full_df$certification),
     selectize = TRUE,
     # True allows you to select multiple choices...
     multiple = TRUE,
@@ -88,9 +88,9 @@ select_widget <-
 slider_widget <- sliderInput(
   inputId = "year_selection",
   label = "year",
-  min = as.numeric(min(filtered_df$Date_Of_Establishment)),
-  max = as.numeric(max(filtered_df$Date_Of_Establishment)),
-  value = c(as.numeric(min(filtered_df$Date_Of_Establishment)), as.numeric(max(filtered_df$Date_Of_Establishment))),
+  min = 1904,
+  max = 2019,
+  value = c(1904, 2019),
   sep = "")
 
 # Put a plot in the middle of the page
@@ -130,40 +130,6 @@ intro_tab <- tabPanel(
   )
 )
 
-conclusion_tab <- tabPanel(
-  "Conclusion",
-  fluidPage(
-    # includeMarkdown("conclusion.md")
-  )
-)
-
-
-# ui creation
-ui <- navbarPage(
-  # Select Theme
-  # theme = my_theme,
-  
-  # Home page title
-  "Home",
-  intro_tab,
-  zipcode_viz_tab,
-  ethnicity_viz_tab,
-  time_vis_tab,
-  conclusion_tab,
-  theme = bs_theme(bootswatch = "minty")
-)
-
-intro_tab <- tabPanel(
-  "Introduction",
-  fluidPage(
-    column(
-      htmlOutput("introduction")
-    ),
-    column(
-      imageOutput("img")
-    )
-  )
-)
 
 conclusion_tab <- tabPanel(
   "Conclusion",
