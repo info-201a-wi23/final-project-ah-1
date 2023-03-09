@@ -17,11 +17,29 @@ full_df <- read.csv("fulldataframe.csv")
 # Audreys tab
 
 zipcode_viz_tab <- tabPanel(
+  
   "Zipcode Map",
   sidebarLayout(
+    
     sidebarPanel(
+      
+      selectInput(
+        inputId = "zipcode_choice",
+        label = "Certification Type",
+        choices = unique(full_df$certification),
+        selectize = TRUE,
+        # True allows you to select multiple choices...
+        multiple = TRUE,
+        selected = "MBE")
+      
     ),
+    
     mainPanel(
+      
+      plotlyOutput("zipcode_map"),
+      h4("Description"),
+      paste("This map displays the locations of each vendor assigned a certification from the New York City government. We can see the wide range of businesses (not all in New York as one might expect), along with compare densities of businesses in different regions of New York and other states. The widget allows easier visual comparison by limiting the types of businesses on the map, and the map itself can be zoomed in on.")
+      
     )
   )
 )
@@ -99,6 +117,43 @@ intro_tab <- tabPanel(
       htmlOutput("introduction", align="center")
     ),
     column(
+      imageOutput("img")
+    )
+  )
+)
+
+conclusion_tab <- tabPanel(
+  "Conclusion",
+  fluidPage(
+    # includeMarkdown("conclusion.md")
+  )
+)
+
+
+# ui creation
+ui <- navbarPage(
+  # Select Theme
+  # theme = my_theme,
+  
+  # Home page title
+  "Home",
+  intro_tab,
+  zipcode_viz_tab,
+  ethnicity_viz_tab,
+  time_vis_tab,
+  conclusion_tab,
+  theme = bs_theme(bootswatch = "minty")
+)
+
+intro_tab <- tabPanel(
+  "Introduction",
+  fluidPage(
+    column(
+      width = 10, 
+      htmlOutput("introduction", align="center")
+    ),
+    column(
+      width = 10, 
       imageOutput("img")
     )
   )
