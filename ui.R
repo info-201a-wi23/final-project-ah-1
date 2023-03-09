@@ -78,7 +78,7 @@ select_widget <-
   selectInput(
     inputId = "cert_selection",
     label = "Certification Type",
-    choices = cert_types,
+    choices = unique(certs$certification),
     selectize = TRUE,
     # True allows you to select multiple choices...
     multiple = TRUE,
@@ -88,24 +88,30 @@ select_widget <-
 slider_widget <- sliderInput(
   inputId = "year_selection",
   label = "year",
-  min = 1984-01-01,
-  max = 2018-01-01,
-  value = c(1984-01-01, 2018-01-01),
+  min = as.numeric(min(filtered_df$Date_Of_Establishment)),
+  max = as.numeric(max(filtered_df$Date_Of_Establishment)),
+  value = c(as.numeric(min(filtered_df$Date_Of_Establishment)), as.numeric(max(filtered_df$Date_Of_Establishment))),
   sep = "")
 
 # Put a plot in the middle of the page
-main_panel_plot <- mainPanel(
-  # Make plot interactive
-  plotlyOutput(outputId = "cert_plot")
-)
+
+scatter_plot <- plotlyOutput(outputId = "cert_plot")
+
+heading_2 <- h4("Description")
+plot_description_2 <- paste("The plot above displays the number of certifications (WBE, MBE, LBE, EBE) per year. This data visualization is attempting to answer the question: ‘How have the number of certifications (frequency and rate of certification) changed over time?’ The data can be filtered by certification type, which is essential when the user would like to compare two or more certifications longitudinally. There is also a slider widget to filter the years in which the plot displays. This can be important when the user is focused on a specific range of dates, like “2000-2021” or “1990-1999”. By displaying the data over a range of dates, the plot provides information on how often certifications are being awarded, and historical patterns of such certifications. This allows us to understand the breadth of the certification process and how it is growing (or shrinking) over time.")
+
 time_vis_tab <- tabPanel(
-  "Certifications over time",
+  "Certifications Over Time",
   sidebarLayout(
     sidebarPanel(
       select_widget,
       slider_widget
     ),
-    mainPanel
+    mainPanel(
+      scatter_plot,
+      heading_2,
+      plot_description_2
+    )
   )
 )
 
@@ -114,9 +120,11 @@ intro_tab <- tabPanel(
   "Introduction",
   fluidPage(
     column(
+      width = 10, 
       htmlOutput("introduction", align="center")
     ),
     column(
+      width = 10, 
       imageOutput("img")
     )
   )

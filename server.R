@@ -6,11 +6,9 @@ library("scales")
 library("maps")
 library("dplyr")
 library("zipcodeR")
-library("mapproj")
-library("lubridate")
 
 # Load in relevant data
-full_df <- read.csv("fulldataframe.csv", colClasses = c(ZIP = "character"))
+full_df <- read.csv("fulldataframe.csv")
 
 # Audreys work
 zipcodes_lat <- full_df %>% group_by(Vendor_Formal_Name) %>% summarize(reverse_zipcode(ZIP)[8])
@@ -36,19 +34,17 @@ blank_theme <- theme_bw() +
     panel.grid.minor = element_blank(),
     panel.border = element_blank()
   )
-
 # Noors work
 
 # Zachs work
-certs <- full_df %>%  select(Vendor_Formal_Name, certification, Date_Of_Establishment) %>% 
+certs_2 <- full_df %>%  select(Vendor_Formal_Name, certification, Date_Of_Establishment) %>% 
   filter(Date_Of_Establishment != "") %>% separate_rows(certification, Date_Of_Establishment, sep = ",")
 
-certs$Date_Of_Establishment <- format(as.Date(certs$Date_Of_Establishment), "%Y")
+certs_2$Date_Of_Establishment <- (substr(certs_2$Date_Of_Establishment, 1, 4))
 
-certs <- certs %>% group_by(certification, Date_Of_Establishment) %>% summarise(certs_per_year = n()) %>% 
-  mutate(full_date_estab = as.Date(paste0(Date_Of_Establishment,"-1-1")))
+certs_2 <- certs_2 %>% group_by(certification, Date_Of_Establishment) %>% summarise(certs_per_year = n()) %>% 
+  mutate(full_date_estab = as.Date(paste0(Date_Of_Establishment,"-01-01")))
 
-cert_types <- unique(certs$certification)
 
 # renders - please keep data in this section to a minimum
 server <- function(input, output) {
@@ -131,7 +127,6 @@ server <- function(input, output) {
     return(ggplotly(zipcode_map))
   })
   
-  
   # Noors render
   
   output$ethnicity_plot <- renderPlotly({
@@ -169,15 +164,16 @@ server <- function(input, output) {
   
   output$cert_plot <- renderPlotly({
     
-    filtered_df <- certs %>%
+    filtered_df <- certs_2 %>%
       filter(certification %in% input$cert_selection) %>%
-      filter(Year > input$year_selection[1] & Year < input$year_selection[2])
+      filter(full_date_estab > as.Date(paste0(input$year_selection[1], "-01-01")) & full_date_estab < as.Date(paste0(input$year_selection[2], "-01-01")))
     
-    cert_plot <- ggplot(filtered_df, aes(full_date_estab,certs_per_year, color = 'Certification')) +
+    cert_plot <- ggplot(filtered_df, aes(full_date_estab,certs_per_year, color = certification)) +
       geom_point()+
-      labs(title = "", x = "Year", y = "Certifications")
+      labs(title = "Certifications Over Time", x = "Year", y = "Certifications")
     
     return(cert_plot)
   })
   
 }
+  
