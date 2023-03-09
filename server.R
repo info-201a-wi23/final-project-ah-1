@@ -120,13 +120,13 @@ server <- function(input, output) {
       geom_point(data = zipcode_filtered,
                  aes(x = lng,
                      y = lat,
-                     text = paste("Vendor:", Vendor_Formal_Name, "<br>", "<br>", "Location:", City, State),
+                     text = paste("Vendor:", Vendor_Formal_Name, '\n', "Location:", City, State),
                      color = certification)) +
       coord_map() +
       blank_theme
     
     
-    return(ggplotly(zipcode_map))
+    return(ggplotly(zipcode_map, tooltip = "text"))
   })
   
   output$conclusion <- renderUI({

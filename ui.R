@@ -5,14 +5,14 @@ library("markdown")
 library("bslib")
 library("tidyverse")
 
-# load any data needed here (for widget choices)
-
 # load in data
 full_df <- read.csv("fulldataframe.csv")
 
-# BootSwatch Theme setup (if anyone would like to switch themes/make a custom one, go ahead!)
-# my_theme <- bs_theme_update(my_theme, bootswatch = "cosmo")
-
+my_theme <- bs_theme(
+  bg = "#edf2f4",
+  fg = "#264653",
+  primary = "#000814"
+)
 
 # Audreys tab
 
@@ -38,7 +38,7 @@ zipcode_viz_tab <- tabPanel(
       
       plotlyOutput("zipcode_map"),
       h4("Description"),
-      paste("This map displays the locations of each vendor assigned a certification from the New York City government. We can see the wide range of businesses (not all in New York as one might expect), along with compare densities of businesses in different regions of New York and other states. The widget allows easier visual comparison by limiting the types of businesses on the map, and the map itself can be zoomed in on.")
+      paste("This map displays the locations of each vendor assigned a certification from the New York City government. We can see the wide range of businesses (not all in New York as one might expect), along with compare densities of businesses in different regions of New York and other states. The widget allows easier visual comparison by limiting the types of businesses on the map, and the map itself can be zoomed in on. Understanding the geographic distribution of certified vendors can provide us with valuable insights into the business distribution in New York. It can also help us identify areas with a lack of certain types of businesses, which could be useful for economic development planning and determining areas where extra resources and support should be allocated.")
       
     )
   )
@@ -60,7 +60,7 @@ heading <- h4("Description")
 plot_description <- paste("This chart displays vendor information in an attempt to answer the question: Which ethnicities are more represented/are underrepresented among businesses in certain cities in New York? I chose to represent ethnicity data in the form of a bar plot where a user can select their desired city. This provides users with a clear and easy-to-interpret visualization of the distribution of ethnicities among various cities in the state of New York. By displaying the number of vendors for each ethnicity, my plot provides insights into the diversity of NY businesses and highlights disparities and imbalances among their representation. This information can allow us to identify which cities need more attention and resources allocated to allow minority and women-owned businesses to thrive.")
 
 ethnicity_viz_tab <- tabPanel(
-  "Ethnicity Analysis",
+  "Ethnicity Distribution",
   sidebarLayout(
     sidebarPanel(
       select_widget
@@ -120,11 +120,12 @@ intro_tab <- tabPanel(
   "Introduction",
   fluidPage(
     column(
-      width = 10, 
-      htmlOutput("introduction", align="center")
+      width = 12, 
+      h3("Introduction", align = "center"),
+      htmlOutput("introduction")
     ),
     column(
-      width = 10, 
+      width = 12, 
       imageOutput("img")
     )
   )
@@ -134,6 +135,7 @@ intro_tab <- tabPanel(
 conclusion_tab <- tabPanel(
   "Conclusion",
   fluidPage(
+    h3("Conclusion", align = "center"),
     htmlOutput("conclusion")
   )
 )
@@ -141,15 +143,13 @@ conclusion_tab <- tabPanel(
 
 # ui creation
 ui <- navbarPage(
-  # Select Theme
-  # theme = my_theme,
-  
+
   # Home page title
-  "Home",
+  "NY Businesses Analysis",
   intro_tab,
   zipcode_viz_tab,
   ethnicity_viz_tab,
   time_vis_tab,
   conclusion_tab,
-  theme = bs_theme(bootswatch = "minty")
+  theme = my_theme
 )
