@@ -10,7 +10,7 @@ Authors:
 | William Hardjanto | wh11@uw.edu     |
 | Zach Gendreau     | zgen88@uw.edu   |
 
-**Link: https://aallen55.shinyapps.io/final-project-ah-1/**
+**Link: https://arshnoor.shinyapps.io/final-project-ah-1/**
 
 # Introduction
 For our final project, we will be analyzing New York City's Minority and Women-owned Business Enterprise (M/WBE), Emerging Business Enterprise (EBE), and Locally-based Business Enterprise (LBE) certified businesses related to the construction industry.
