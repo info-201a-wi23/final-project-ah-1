@@ -157,11 +157,9 @@ intro_tab <- tabPanel(
   "Introduction",
   fluidPage(
     column(
-      width = 10, 
-      htmlOutput("introduction", align="center")
+      htmlOutput("introduction")
     ),
     column(
-      width = 10, 
       imageOutput("img")
     )
   )
@@ -170,7 +168,7 @@ intro_tab <- tabPanel(
 conclusion_tab <- tabPanel(
   "Conclusion",
   fluidPage(
-    # includeMarkdown("conclusion.md")
+    htmlOutput("conclusion")
   )
 )
 

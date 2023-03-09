@@ -127,6 +127,48 @@ server <- function(input, output) {
     return(ggplotly(zipcode_map))
   })
   
+  output$conclusion <- renderUI({
+    p1 <- paste("After analyzing the data on New York City's Minority and Women-owned
+                Business Enterprise (M/WBE), Emerging Business Enterprise (EBE),and Locally-based
+                Business Enterprise (LBE) certified businesses, there are three specific takeaways that can be made.")
+    p2 <- paste("Firstly, in terms of race and ethnicity, the representation of minority-owned businesses
+                in New York City is still unequal compared to the city's overall demographic.
+                The bar plot representation of ethnicity data shows that ethnic minorities are still
+                significantly underrepresented. Non-minorities still represent the most at 37% of the observation,
+                followed by African American at 26%, Asian at 21%, and Hispanic at 16%.
+                This suggests that there is a need for more attention and resources to be allocated to
+                allow minority-owned businesses to thrive in these areas.")
+    p3 <- paste("Secondly, the geographic distribution of certified businesses is also unequal,
+                with some areas having a higher density of businesses than others.
+                The map visualization shows that there are many certified businesses not only
+                in New York but also in other states. However, there are significant disparities
+                in the distribution of opportunities for minority- and women-owned businesses.
+                For instance, from a glance of the map, New York City, in New York has the highest number
+                and density of certified businesses, while some state like Alaska only as one.
+                Yet it is unfair to compare New York with Alaska, especially since the data is made by New York city.
+                Though even if compared internally, Staten Island in New York seem to have lower density of certified business.
+                This information can help policymakers understand where to focus their efforts to promote diversity
+                and support these businesses in underserved areas.")
+    p4 <- paste("Thirdly, we can see the number of new businesses owned by minorities and women
+                increasing over time as shown in the plot of the number of new businesses per year
+                that is certified. This growth trend indicates that more minority- and women-owned businesses
+                are receiving certifications over time, which is a positive sign for diversity and equity
+                in the industry. However, there is still a need to examine the types of businesses being certified
+                and ensure that the certification process is fair and equitable.")
+    p5 <- paste("The broader implications of these results are that there is that we still need to
+                promote diversity and equity in the construction industry and its related field for
+                minority- and women-owned businesses. Policymakers need to pay attention to the geographic
+                distribution of these businesses and provide resources and support to areas with lower representation.
+                More importantly, the certification process itself needs to be examined to ensure that it is
+                fair and equitable and that it is promoting diversity and inclusion, and is far from biases.")
+    p6 <- paste("In conclusion, this analysis highlights the need for continued efforts to promote diversity
+                and equity in the business industry, particularly for minority- and women-owned businesses.
+                The visualizations provided in this project provide valuable insights into the distribution
+                of these businesses and can be used to inform policymaking and support these underrepresented communities.")
+    
+    HTML(paste(p1,p2,p3,p4,p5,p6, sep = '<br/><br/>'))
+  })
+  
   # Noors render
   
   output$ethnicity_plot <- renderPlotly({
