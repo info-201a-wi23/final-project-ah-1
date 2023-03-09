@@ -91,16 +91,15 @@ time_vis_tab <- tabPanel(
   )
 )
 
-# Williams tabs (partially commented out as the files dont exist yet)
 
 intro_tab <- tabPanel(
   "Introduction",
   fluidPage(
     column(
-      # includeMarkdown("intro.md")
+      htmlOutput("introduction", align="center")
     ),
     column(
-      # image here?
+      imageOutput("img")
     )
   )
 )

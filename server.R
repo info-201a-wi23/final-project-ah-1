@@ -28,6 +28,62 @@ cert_types <- unique(certs$certification)
 # renders - please keep data in this section to a minimum
 server <- function(input, output) {
   
+  # Williams image
+  output$img <- renderImage({
+    
+    list(src = "infoFinal.png",
+         width = "100%",
+         align = "center")
+    
+  }, deleteFile = F)
+  
+  # Williams writing
+  output$introduction <- renderUI({
+    p1 <- paste("For our final project, we will be analyzing New York City's Minority and
+                Women-owned Business Enterprise (M/WBE), Emerging Business Enterprise (EBE),
+                and Locally-based Business Enterprise (LBE) certified businesses related to the construction industry.")
+    p2 <- paste("We intend to explore to which extent do minority and women-owned businesses are
+                represented in NYC's diverse communities, to identify potential areas of opportunity for
+                contractors and vendors, and to analyze trends in the growth and success of certified businesses over time.")
+    p3 <- paste("Despite the efforts to promote diversity, there are still disparities and
+                inequalities in the distribution of business opportunities.
+                Through this project, we aim to answer the following research questions:")
+    p4 <- paste("1. In terms of race and ethnicity, how does the demographic representation of minority-owned
+                businesses in New York City compare to the city's overall demographic?
+                The purpose of this question is to reveal how well these minority- and
+                women-owned certified businesses represent the city's diverse communities.")
+    p5 <- paste("2. What is the city's geographic distribution of certified businesses?
+                The purpose of this question is to reveal inequalities in the distribution of
+                opportunities for minority- and women-owned businesses across the city.")
+    p6 <- paste("3. What has happened to the number of certified businesses over time?
+                The purpose of this question is to reveal trends and patterns in the growth and success of
+                the city's minority and women-owned businesses, which can be used to help decide
+                future policies regarding this certification program.")
+    p7 <- paste("The dataset that we will be using is titled: the NYC M/WBE, LBE, and EBE Certified Business List dataset,
+                which is publicly available on the New York City Department of Small Business Services (SBS) website
+                as well as on Kaggle where we obtained it.")
+    p8 <- paste("This dataset contains information on M/WBEs, LBEs, and EBEs certified by the city
+                (thus the dataset contain business from outside New York, in fact, it is spreaded to over 33 states)
+                and includes details such as the company name, address, industry, certification type, and more.
+                The dataset is regularly updated to reflect changes in the certification status of businesses.")
+    p9 <- paste("Dataset: https://www.kaggle.com/datasets/new-york-city/nyc-m-wbe,-lbe,-and-ebe-certified-business-list?select=m-wbe-lbe-and-ebe-certified-business-list.csv")
+    p10 <- paste("Like all data, this dataset has limitations and ethical questions we need to consider.
+                 For example, it only includes businesses certified by NYC as M/WBE, LBE, or EBE, leaving out other diverse businesses.
+                 This lack of representation could lead to issues of equity.
+                 Also, we don't know how often women and minorities receive EBE and LBE licenses,
+                 and there may be an overlap between owners of these licenses.
+                 Additionally, the data doesn't provide information on how the city chooses who gets licenses,
+                 which could create inequity in distribution. There are also concerns about data accuracy due to
+                 bias and selection bias, as well as potential privacy issues since the dataset includes personal information.")
+    p11 <- paste("Overall, this project is intended to explore minority and women owned business mainly in New York City,
+                 in order to use the analysis to identify opportunity for both vendor and potential contractor.
+                 Additionally, we are also raising concern regarding ethical question and limitation of the dataset used.")
+    p12 <- paste("Below is a stable diffusion generated image of “diverse community of minority contributing to live of major city”")
+    
+    HTML(paste(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12, sep = '<br/><br/>'))
+  })
+  
+  
   # Audreys render
   output$zipcode_map <- renderPlotly({
     
@@ -84,3 +140,4 @@ server <- function(input, output) {
   })
   
 }
+  
