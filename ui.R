@@ -17,11 +17,29 @@ full_df <- read.csv("fulldataframe.csv")
 # Audreys tab
 
 zipcode_viz_tab <- tabPanel(
+  
   "Zipcode Map",
   sidebarLayout(
+    
     sidebarPanel(
+      
+      selectInput(
+        inputId = "zipcode_choice",
+        label = "Certification Type",
+        choices = unique(full_df$certification),
+        selectize = TRUE,
+        # True allows you to select multiple choices...
+        multiple = TRUE,
+        selected = "MBE")
+      
     ),
+    
     mainPanel(
+      
+      plotlyOutput("zipcode_map"),
+      h4("Description"),
+      paste("This map displays the locations of each vendor assigned a certification from the New York City government. We can see the wide range of businesses (not all in New York as one might expect), along with compare densities of businesses in different regions of New York and other states. The widget allows easier visual comparison by limiting the types of businesses on the map, and the map itself can be zoomed in on.")
+      
     )
   )
 )

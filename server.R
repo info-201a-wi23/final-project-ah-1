@@ -6,11 +6,36 @@ library("scales")
 library("maps")
 library("dplyr")
 library("zipcodeR")
+library("mapproj")
+library("lubridate")
 
 # Load in relevant data
-full_df <- read.csv("fulldataframe.csv")
+full_df <- read.csv("fulldataframe.csv", colClasses = c(ZIP = "character"))
 
 # Audreys work
+zipcodes_lat <- full_df %>% group_by(Vendor_Formal_Name) %>% summarize(reverse_zipcode(ZIP)[8])
+
+zipcodes_long <- full_df %>% group_by(Vendor_Formal_Name) %>% summarize(reverse_zipcode(ZIP)[9])
+
+zipcode_df <- left_join(full_df, zipcodes_lat, by = "Vendor_Formal_Name")
+
+zipcode_df <- left_join(zipcode_df, zipcodes_long, by = "Vendor_Formal_Name")
+
+zipcode_df <- zipcode_df %>% select(certification, lat, lng, Vendor_Formal_Name, City, State)
+
+us_shape <- map_data("state")
+
+blank_theme <- theme_bw() +
+  theme(
+    axis.line = element_blank(),
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title = element_blank(),
+    plot.background = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.border = element_blank()
+  )
 
 # Noors work
 
@@ -87,9 +112,25 @@ server <- function(input, output) {
   # Audreys render
   output$zipcode_map <- renderPlotly({
     
+    # zipcode
+    zipcode_filtered <- zipcode_df %>% filter(certification %in% input$zipcode_choice)
     
-    return(zipcode_map)
+    zipcode_map <- ggplot(data = us_shape) +
+      geom_polygon(aes(x = long,
+                       y = lat,
+                       group = group)) +
+      geom_point(data = zipcode_filtered,
+                 aes(x = lng,
+                     y = lat,
+                     text = paste("Vendor:", Vendor_Formal_Name, "<br>", "<br>", "Location:", City, State),
+                     color = certification)) +
+      coord_map() +
+      blank_theme
+    
+    
+    return(ggplotly(zipcode_map))
   })
+  
   
   # Noors render
   
